@@ -56,11 +56,11 @@ export const makeContract = async (request) => {
 
 
 export const buildContract = (folderName) => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         const pathToFolder = CWD_CONTRACT.getPath(CWD_CONTRACT.PATH, folderName)
         const { exec } = require('node:child_process');
 
-        exec(`cp ${CWD_CONTRACT.LOAN_TEMPLATE_PATH}/build.sh ${pathToFolder}`, { cwd: pathToFolder }, (error, stdout) => {
+        exec(`cp ${CWD_CONTRACT.LOAN_TEMPLATE_PATH}/build.sh ${pathToFolder}`, { cwd: pathToFolder }, (error) => {
             if (error) {
                 console.log(pathToFolder, error); // an AbortError
             } else {

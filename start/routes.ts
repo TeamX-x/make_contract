@@ -20,10 +20,9 @@
 
 import Drive from '@ioc:Adonis/Core/Drive';
 import Route from '@ioc:Adonis/Core/Route';
-import { ACCOUNT, MARKET_CONTRACT } from 'Config/contract';
 import { fns } from '../templates/config/templates';
 import generateRust from '../templates/helper/generateRust';
-import { addContractToMarket, buildContract, deployContractLoan, makeContract } from './controllers/loanContract';
+import { addContractToMarket} from './controllers/loanContract';
 
 Route.post('/make_contract', async ({ request }) => {
   const body = request.body()

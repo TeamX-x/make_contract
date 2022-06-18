@@ -1,4 +1,3 @@
-import { ACCOUNT } from "Config/contract";
 
 export const getConfig = (keyStore) => {
   return {
