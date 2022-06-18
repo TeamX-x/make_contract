@@ -7,7 +7,7 @@ User 2 borrow from user 1: ast3ros2.testnet
 
 Deploy:
 
-- near deploy --wasmFile out/p2p_loan.wasm --accountId dev-1655202849342-40981836249918
+- near deploy --wasmFile out/loan-v2.wasm --accountId dev-1655202849342-40981836249918
 
 Initiate: Deadline in Unix time: Nanoseconds - predecessor accounnt_id should be marketplace contract
 

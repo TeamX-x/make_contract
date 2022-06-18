@@ -1,13 +1,13 @@
 export const CWD_CONTRACT = {
-    // LOAN_TEMPLATE_PATH: '/home/hieutk/Documents/k5/x-team/make_contract/templates/p2p_loan',
-    // PATH: '/home/hieutk/Documents/k5/x-team/make_contract/tmp/uploads/${contract_folder}/templates/p2p_loan',
-    LOAN_TEMPLATE_PATH: '/home/www-data/make_contract/templates/p2p_loan',
-    PATH: '/home/www-data/make_contract/tmp/uploads/${contract_folder}/templates/p2p_loan',
+    // LOAN_TEMPLATE_PATH: '/home/hieutk/Documents/k5/x-team/make_contract/templates/loan-v2',
+    // PATH: '/home/hieutk/Documents/k5/x-team/make_contract/tmp/uploads/${contract_folder}/templates/loan-v2',
+    LOAN_TEMPLATE_PATH: '/home/www-data/make_contract/templates/loan-v2',
+    PATH: '/home/www-data/make_contract/tmp/uploads/${contract_folder}/templates/loan-v2',
     getPath: (pathConfig, folderContract) => {
         return pathConfig.replace('${contract_folder}', folderContract)
     },
     getPathOut: (folderContract) => {
-        return `/home/www-data/make_contract/tmp/uploads/${folderContract}/templates/p2p_loan/out/p2p_loan.wasm`
+        return `/home/www-data/make_contract/tmp/uploads/${folderContract}/templates/loan-v2/out/loan-v2.wasm`
     }
 }
 export const ACCOUNT = {

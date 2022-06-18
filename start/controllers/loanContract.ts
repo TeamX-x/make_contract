@@ -12,9 +12,9 @@ export const makeContract = async (request) => {
     folderContract = `loan_contract_${dt}`
 
     const src_template = [
-        'templates/p2p_loan/src/lib.rs',
-        'templates/p2p_loan/Cargo.lock',
-        'templates/p2p_loan/Cargo.toml',
+        'templates/loan-v2/src/lib.rs',
+        'templates/loan-v2/Cargo.lock',
+        'templates/loan-v2/Cargo.toml',
     ]
 
 
