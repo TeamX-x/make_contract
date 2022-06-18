@@ -2,13 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MARKET_CONTRACT = exports.ACCOUNT = exports.CWD_CONTRACT = void 0;
 exports.CWD_CONTRACT = {
-    LOAN_TEMPLATE_PATH: '/home/hieutk/Documents/k5/x-team/make_contract/templates/p2p_loan',
-    PATH: '/home/hieutk/Documents/k5/x-team/make_contract/tmp/uploads/${contract_folder}/templates/p2p_loan',
+    LOAN_TEMPLATE_PATH: '/home/www-data/make_contract/templates/p2p_loan',
+    PATH: '/home/www-data/make_contract/tmp/uploads/${contract_folder}/templates/p2p_loan',
     getPath: (pathConfig, folderContract) => {
         return pathConfig.replace('${contract_folder}', folderContract);
     },
     getPathOut: (folderContract) => {
-        return `/home/hieutk/Documents/k5/x-team/make_contract/tmp/uploads/${folderContract}/templates/p2p_loan/out/p2p_loan.wasm`;
+        return `/home/www-data/make_contract/tmp/uploads/${folderContract}/templates/p2p_loan/out/p2p_loan.wasm`;
     }
 };
 exports.ACCOUNT = {
