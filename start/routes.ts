@@ -22,6 +22,7 @@ import Drive from '@ioc:Adonis/Core/Drive';
 import Route from '@ioc:Adonis/Core/Route';
 import { fns } from '../templates/config/templates';
 import generateRust from '../templates/helper/generateRust';
+import { buildContract, deployContractLoan, makeContract } from './controllers/loanContract';
 
 Route.post('/make_contract', async ({ request }) => {
   const body = request.body()
@@ -108,4 +109,14 @@ Route.post('/make_contract', async ({ request }) => {
 
 
   return { success: true }
+})
+
+Route.post('/make_contract_loan', async ({ request }) => {
+  const dt = (new Date()).getTime()
+  const accountdeployed = `${dt}-deploy.xteam.testnet`
+
+  const contractPath = await makeContract(request)
+  await buildContract(contractPath)
+  const resDeployed = await deployContractLoan(accountdeployed, contractPath)
+  return { success: true, smartcontract: accountdeployed }
 })
