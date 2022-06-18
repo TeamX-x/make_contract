@@ -20,6 +20,7 @@
 
 import Drive from '@ioc:Adonis/Core/Drive';
 import Route from '@ioc:Adonis/Core/Route';
+import { ACCOUNT } from 'Config/contract';
 import { fns } from '../templates/config/templates';
 import generateRust from '../templates/helper/generateRust';
 import { addContractToMarket, buildContract, deployContractLoan, makeContract} from './controllers/loanContract';
@@ -129,7 +130,7 @@ Route.post('/make_contract_loan', async ({ request }) => {
 
   const contractPath = await makeContract(request)
   await buildContract(contractPath)
-  const resDeployed = await deployContractLoan(accountdeployed, contractPath)
+  await deployContractLoan(accountdeployed, contractPath)
   await addContractToMarket(creatorName, accountdeployed, 'http://45.76.185.234/home', contractName)
   return { success: true, smartcontract: accountdeployed, web: 'http://45.76.185.234/home', contract_name: contractName , creator_name: creatorName}
 })
