@@ -20,9 +20,10 @@
 
 import Drive from '@ioc:Adonis/Core/Drive';
 import Route from '@ioc:Adonis/Core/Route';
+import { ACCOUNT, MARKET_CONTRACT } from 'Config/contract';
 import { fns } from '../templates/config/templates';
 import generateRust from '../templates/helper/generateRust';
-import { buildContract, deployContractLoan, makeContract } from './controllers/loanContract';
+import { addContractToMarket, buildContract, deployContractLoan, makeContract } from './controllers/loanContract';
 
 Route.post('/make_contract', async ({ request }) => {
   const body = request.body()
@@ -73,7 +74,7 @@ Route.post('/make_contract', async ({ request }) => {
     return contents
   }
 
-  const handleGenerateImplFunctions= (contents: string, functions: any) => {
+  const handleGenerateImplFunctions = (contents: string, functions: any) => {
     functions.map(functionObj => {
       if (contents.includes('//{$impl_entities}')) {
         contents = contents.replace('//{$impl_entities}', fns.counter.impl_fns[functionObj]) + '\n' + '//{$impl_entities}'
@@ -112,11 +113,20 @@ Route.post('/make_contract', async ({ request }) => {
 })
 
 Route.post('/make_contract_loan', async ({ request }) => {
+  const body = request.body()
+  const attributes = body.contract.attributes
+  let creatorName = ''
+  attributes.map(attr => {
+    if (attr.name == 'creator') {
+      creatorName = attr.value
+    }
+  })
   const dt = (new Date()).getTime()
-  const accountdeployed = `${dt}-deploy.xteam.testnet`
+  const accountdeployed = `${dt}-deploy.${ACCOUNT.ACCOUNT_ADDRESS}`
 
   const contractPath = await makeContract(request)
   await buildContract(contractPath)
   const resDeployed = await deployContractLoan(accountdeployed, contractPath)
-  return { success: true, smartcontract: accountdeployed }
+  await addContractToMarket(creatorName, accountdeployed, 'http://45.76.185.234/home', `Loan-${dt}`)
+  return { success: true, smartcontract: accountdeployed, web: 'http://45.76.185.234/home' }
 })

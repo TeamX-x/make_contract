@@ -9,6 +9,13 @@ export const CWD_CONTRACT = {
     }
 }
 export const ACCOUNT = {
-    PRIVATE_KEY: 'ed25519:3kNoHXCVP6FHrkdVnBAJPY9PkrRyrHoJpCGJtUFkBpw6H4FfCmMYnXgwZofc3Mb1KiozcsRupSPtdVXRkPAEnap5',
-    ACCOUNT_ADDRESS: 'xteam.testnet'
+    // PRIVATE_KEY: 'ed25519:3kNoHXCVP6FHrkdVnBAJPY9PkrRyrHoJpCGJtUFkBpw6H4FfCmMYnXgwZofc3Mb1KiozcsRupSPtdVXRkPAEnap5',
+    // ACCOUNT_ADDRESS: 'xteam.testnet',
+    PRIVATE_KEY: 'ed25519:56qXohBtWGyqircNHc5oXtDVGEMMZCocRpiaKgTeLRTdoAELbFLW1LnLkLwcRQarqoJpiSxmXXcGVzHkCGUk9tsp',
+    ACCOUNT_ADDRESS: 'xteam-market.testnet',
+}
+
+export const MARKET_CONTRACT = {
+    NAME: 'xteam-market.testnet',
+    METHODS_CONFIG: ['create_smart_contract']
 }
