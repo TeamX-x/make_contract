@@ -11,11 +11,13 @@ export const CWD_CONTRACT = {
 export const ACCOUNT = {
     // PRIVATE_KEY: 'ed25519:3kNoHXCVP6FHrkdVnBAJPY9PkrRyrHoJpCGJtUFkBpw6H4FfCmMYnXgwZofc3Mb1KiozcsRupSPtdVXRkPAEnap5',
     // ACCOUNT_ADDRESS: 'xteam.testnet',
-    PRIVATE_KEY: 'ed25519:56qXohBtWGyqircNHc5oXtDVGEMMZCocRpiaKgTeLRTdoAELbFLW1LnLkLwcRQarqoJpiSxmXXcGVzHkCGUk9tsp',
-    ACCOUNT_ADDRESS: 'xteam-market.testnet',
+    // PRIVATE_KEY: 'ed25519:56qXohBtWGyqircNHc5oXtDVGEMMZCocRpiaKgTeLRTdoAELbFLW1LnLkLwcRQarqoJpiSxmXXcGVzHkCGUk9tsp',
+    // ACCOUNT_ADDRESS: 'xteam-market.testnet',
+    PRIVATE_KEY: 'ed25519:4AuSztL2KiVYduLTLP7tpubr6o1zpRNwonWf1HTT3rvt3NXf5qSCH7c8tSC6PogttSGgY4e6FEv4i34fkdjZkXyu',
+    ACCOUNT_ADDRESS: 'market-nfts.testnet',
 }
 
 export const MARKET_CONTRACT = {
-    NAME: 'xteam-market.testnet',
+    NAME: 'market-nfts.testnet',
     METHODS_CONFIG: ['create_smart_contract']
 }

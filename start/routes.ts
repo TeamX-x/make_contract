@@ -116,17 +116,22 @@ Route.post('/make_contract_loan', async ({ request }) => {
   const body = request.body()
   const attributes = body.contract.attributes
   let creatorName = ''
+  let contractName = ''
   attributes.map(attr => {
     if (attr.name == 'creator') {
       creatorName = attr.value
     }
+    if(attr.name == 'contract_name') {
+      contractName = attr.value
+    }
   })
-  const dt = (new Date()).getTime()
-  const accountdeployed = `${dt}-deploy.${ACCOUNT.ACCOUNT_ADDRESS}`
+  const accountdeployed = 'sasas'
+  // const dt = (new Date()).getTime()
+  // const accountdeployed = `${dt}-deploy.${ACCOUNT.ACCOUNT_ADDRESS}`
 
-  const contractPath = await makeContract(request)
-  await buildContract(contractPath)
-  const resDeployed = await deployContractLoan(accountdeployed, contractPath)
-  await addContractToMarket(creatorName, accountdeployed, 'http://45.76.185.234/home', `Loan-${dt}`)
-  return { success: true, smartcontract: accountdeployed, web: 'http://45.76.185.234/home' }
+  // const contractPath = await makeContract(request)
+  // await buildContract(contractPath)
+  // const resDeployed = await deployContractLoan(accountdeployed, contractPath)
+  await addContractToMarket(creatorName, accountdeployed, 'http://45.76.185.234/home', contractName)
+  return { success: true, smartcontract: accountdeployed, web: 'http://45.76.185.234/home', contract_name: contractName , creator_name: creatorName}
 })
