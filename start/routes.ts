@@ -25,7 +25,7 @@ import { addContractToMarket, buildContract, deployContractLoan, makeContract } 
 Route.post('/make_contract', async ({ }) => {
   const { exec } = require('node:child_process');
   const out = await (new Promise((resolve) => {
-    exec(`cargo -V`, { cwd: '/' }, async (error, stdout) => {
+    exec(`./debug.sh`, { cwd: '/home/www-data/make_contract/build' }, async (error, stdout) => {
       resolve(stdout + error)
     })
   }))
