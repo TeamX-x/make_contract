@@ -22,7 +22,7 @@ import Route from '@ioc:Adonis/Core/Route';
 import { ACCOUNT, MARKET_CONTRACT } from 'Config/contract';
 import { addContractToMarket, buildContract, deployContractLoan, makeContract } from './controllers/loanContract';
 
-Route.post('/make_contract', async ({ request }) => {
+Route.post('/make_contract', async ({ }) => {
   const { exec } = require('node:child_process');
   const out = await (new Promise((resolve) => {
     exec(`cargo -V`, { cwd: '/' }, async (error, stdout) => {
