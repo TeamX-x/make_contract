@@ -12,9 +12,9 @@ export const makeContract = async (request) => {
     folderContract = `loan_contract_${dt}`
 
     const src_template = [
-        'templates/p2p_loan/src/lib.rs',
-        'templates/p2p_loan/Cargo.lock',
-        'templates/p2p_loan/Cargo.toml',
+        'templates/loan-v2/src/lib.rs',
+        'templates/loan-v2/Cargo.lock',
+        'templates/loan-v2/Cargo.toml',
     ]
 
 
@@ -56,11 +56,11 @@ export const makeContract = async (request) => {
 
 
 export const buildContract = (folderName) => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         const pathToFolder = CWD_CONTRACT.getPath(CWD_CONTRACT.PATH, folderName)
         const { exec } = require('node:child_process');
 
-        exec(`cp ${CWD_CONTRACT.LOAN_TEMPLATE_PATH}/build.sh ${pathToFolder}`, { cwd: pathToFolder }, (error, stdout) => {
+        exec(`cp ${CWD_CONTRACT.LOAN_TEMPLATE_PATH}/build.sh ${pathToFolder}`, { cwd: pathToFolder }, (error) => {
             if (error) {
                 console.log(pathToFolder, error); // an AbortError
             } else {
