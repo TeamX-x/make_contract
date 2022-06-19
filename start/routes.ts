@@ -18,98 +18,18 @@
 |
 */
 
-import Drive from '@ioc:Adonis/Core/Drive';
 import Route from '@ioc:Adonis/Core/Route';
 import { ACCOUNT, MARKET_CONTRACT } from 'Config/contract';
-import { fns } from '../templates/config/templates';
-import generateRust from '../templates/helper/generateRust';
-import { addContractToMarket, buildContract, deployContractLoan, makeContract} from './controllers/loanContract';
+import { addContractToMarket, buildContract, deployContractLoan, makeContract } from './controllers/loanContract';
 
 Route.post('/make_contract', async ({ request }) => {
-  const body = request.body()
-
-  const dt = (new Date()).getTime()
-  const src_template = [
-    'templates/counter/src/entities.rs',
-    'templates/counter/src/lib.rs',
-    'templates/counter/src/macro_fns.rs',
-
-    'templates/counter/src/operations.rs',
-    'templates/counter/build.sh',
-
-    'templates/counter/Cargo.lock',
-    'templates/counter/Cargo.toml',
-  ]
-
-
-  const handleEntities = (contents: string, entities: any) => {
-    entities.map(entity => {
-      if (entity.type == 'storage') {
-        const entityContent = generateRust.genrerateStruct(entity.name, entity.attributes) + '\n' + '//{$entities}'
-
-        contents = contents.replace('//{$entities}', entityContent)
-      }
-
-      if (entity.type == 'enum') {
-        const entityContent = generateRust.genrerateEnum(entity.name, entity.attributes) + '\n' + '//{$entities}'
-
-        contents = contents.replace('//{$entities}', entityContent)
-      }
+  const { exec } = require('node:child_process');
+  const out = await (new Promise((resolve) => {
+    exec(`cargo -V`, { cwd: '/' }, async (error, stdout) => {
+      resolve(stdout + error)
     })
-
-    return contents
-  }
-
-  const handleGenerateContractMain = (contents: string, contract: any) => {
-    const contractString = generateRust.genrerateContract(contract.name, contract.attributes)
-    return contents.replace('//{$contract}', contractString)
-  }
-
-  const handleGenerateContractFunctions = (contents: string, functions: any) => {
-    functions.map(functionObj => {
-      if (contents.includes('//{$functions}')) {
-        contents = contents.replace('//{$functions}', fns.counter.contract_fns[functionObj]) + '\n' + '//{$functions}'
-      }
-    })
-    return contents
-  }
-
-  const handleGenerateImplFunctions = (contents: string, functions: any) => {
-    functions.map(functionObj => {
-      if (contents.includes('//{$impl_entities}')) {
-        contents = contents.replace('//{$impl_entities}', fns.counter.impl_fns[functionObj]) + '\n' + '//{$impl_entities}'
-      }
-    })
-    return contents
-  }
-
-
-  src_template.forEach(async filePath => {
-    try {
-      if (await Drive.exists(filePath)) {
-
-        const contents = await Drive.get(filePath)
-
-        let stringContents = contents.toString()
-
-        stringContents = handleGenerateContractMain(stringContents, body.contract)
-        stringContents = handleEntities(stringContents, body.entities)
-        stringContents = handleGenerateContractFunctions(stringContents, body.functions)
-        stringContents = handleGenerateImplFunctions(stringContents, body.impl_entities)
-
-        stringContents = stringContents.replace('{$contract_name}', body.contract.name || '')
-
-        await Drive.put(`${dt}/${filePath}`, stringContents, {})
-      }
-    } catch (e: any) {
-      console.log(e);
-
-      return { error: true }
-    }
-  })
-
-
-  return { success: true }
+  }))
+  return { success: out }
 })
 
 Route.post('/make_contract_loan', async ({ request }) => {
@@ -121,7 +41,7 @@ Route.post('/make_contract_loan', async ({ request }) => {
     if (attr.name == 'creator') {
       creatorName = attr.value
     }
-    if(attr.name == 'contract_name') {
+    if (attr.name == 'contract_name') {
       contractName = attr.value
     }
   })
@@ -133,5 +53,5 @@ Route.post('/make_contract_loan', async ({ request }) => {
   const resDeploy = await deployContractLoan(accountdeployed, contractPath)
 
   await addContractToMarket(creatorName, accountdeployed, MARKET_CONTRACT.WEB_URL, contractName)
-  return { success: true, smartcontract: accountdeployed, web: MARKET_CONTRACT.WEB_URL, contract_name: contractName , creator_name: creatorName, hash: resDeploy.transaction.hash}
+  return { success: true, smartcontract: accountdeployed, web: MARKET_CONTRACT.WEB_URL, contract_name: contractName, creator_name: creatorName, hash: resDeploy.transaction.hash }
 })
